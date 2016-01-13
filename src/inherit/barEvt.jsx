@@ -20,7 +20,6 @@ export default class BarEvt extends Component {
   }
 
   mouseOut(d, i) {
-
     this.setState({
       xTooltip: null,
       yTooltip: null,
@@ -29,7 +28,7 @@ export default class BarEvt extends Component {
   }
 
   mouseOver(d, i) {
-    const contentTooltip = {title: d.name, value:d.y, fieldTitle: d.x, color: d.color};
+    const contentTooltip = {title: d.name, value: d.y, fieldTitle: d.x, color: d.color};
     this.setState({
       xTooltip: d3.event.clientX,
       yTooltip: d3.event.clientY,

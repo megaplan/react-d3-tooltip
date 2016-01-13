@@ -12,13 +12,14 @@ import {
 
 
 export default class Tooltip extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
 
   static defaultProps = {
     gravity: 's',
-    dist: 15
+    dist: 15,
+    tooltipClassName: 'react-d3-basics__tooltip_utils'
   }
 
   render() {
@@ -26,19 +27,20 @@ export default class Tooltip extends Component {
       xTooltip,
       yTooltip,
       contentTooltip,
-      dist
-    } = this.props;
+      dist,
+      tooltipClassName
+      } = this.props;
 
     let contentTooltipTmpl;
 
     var style = {
-      left: xTooltip? xTooltip + dist: -100,
-      top: yTooltip? yTooltip + dist: -100,
+      left: xTooltip ? xTooltip + dist : -100,
+      top: yTooltip ? yTooltip + dist : -100,
       position: 'fixed'
     }
 
-    if (contentTooltip) {
-      if (this.props.children) {
+    if(contentTooltip) {
+      if(this.props.children) {
         contentTooltipTmpl = React.cloneElement(this.props.children, {contentTooltip: contentTooltip});
       } else {
         contentTooltipTmpl = <TableTooltipStyle contentTooltip={contentTooltip}/>;
@@ -47,9 +49,9 @@ export default class Tooltip extends Component {
 
     return (
       <div
-        style= {style}
-        className= "react-d3-basics__tooltip_utils"
-        >
+        style={style}
+        className={tooltipClassName}
+      >
         {contentTooltipTmpl}
       </div>
     )

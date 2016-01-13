@@ -34,25 +34,43 @@ export default class BarContainer extends Component {
     const {
       onMouseOver,
       onMouseOut,
+      chartSeries,
       showXGrid,
-      showYGrid
-    } = this.props;
+      showYGrid,
+      barClassName,
+      xAxisClassName,
+      yAxisClassName,
+      xWordWrap,
+      xGridAxisLineStyle,
+      yGridAxisLineStyle
+      } = this.props;
 
     var xgrid, ygrid;
 
-    if(showXGrid) xgrid = <Xgrid {...this.props}/>
-    if(showYGrid) ygrid = <Ygrid {...this.props}/>
+    if(showXGrid) xgrid = <Xgrid {...this.props} gridAxisLineStyle={xGridAxisLineStyle}/>
+    if(showYGrid) ygrid = <Ygrid {...this.props} gridAxisLineStyle={yGridAxisLineStyle}/>
 
     return (
       <g>
         {xgrid}
         {ygrid}
-        <Xaxis {...this.props}/>
-        <Yaxis {...this.props}/>
+        <Xaxis
+          {...this.props}
+          xAxisClassName={xAxisClassName}
+          xWordWrap={xWordWrap}
+          xGridAxisLineStyle={xGridAxisLineStyle}
+        />
+        <Yaxis
+          {...this.props}
+          yAxisClassName={yAxisClassName}
+          yGridAxisLineStyle={yGridAxisLineStyle}
+        />
         <Bar
           {...this.props}
-          onMouseOver= {onMouseOver}
-          onMouseOut= {onMouseOut}
+          onMouseOver={onMouseOver}
+          onMouseOut={onMouseOut}
+          chartSeries={chartSeries}
+          barClassName={barClassName}
         />
       </g>
     )

@@ -27,8 +27,13 @@ export default class BarTooltip extends BarEvt {
 
     const {
       width,
-      height
-    } = this.props;
+      height,
+      margins,
+      data,
+      chartSeries,
+      categoricalColors,
+      barClassName
+      } = this.props;
 
     return (
       <div>
@@ -37,16 +42,26 @@ export default class BarTooltip extends BarEvt {
         </Tooltip>
         <Legend
           {...this.props}
+          width={width}
+          margins={margins}
+          chartSeries={chartSeries}
+          categoricalColors={categoricalColors}
         />
         <Chart
           {...this.props}
           {...this.state}
-          >
+          width={width}
+          height={height}
+          data={data}
+          chartSeries={chartSeries}
+        >
           <BarContainer
             {...this.props}
             {...this.state}
-            onMouseOver= {this.mouseOver.bind(this)}
-            onMouseOut= {this.mouseOut.bind(this)}
+            onMouseOver={this.mouseOver.bind(this)}
+            onMouseOut={this.mouseOut.bind(this)}
+            chartSeries={chartSeries}
+            barClassName={barClassName}
           />
         </Chart>
       </div>
