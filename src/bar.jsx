@@ -36,7 +36,7 @@ export default class BarTooltip extends BarEvt {
       } = this.props;
 
     return (
-      <div>
+      <div style={{position: 'relative'}}>
         <Tooltip {...this.props} {...this.state}>
           {this.props.children}
         </Tooltip>

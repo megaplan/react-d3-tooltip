@@ -14,6 +14,7 @@ export default class SimpleTooltipStyle extends Component {
 
   render() {
     const contentTooltip = this.props.contentTooltip;
+    const position = this.props.position;
 
     var cv = Object.keys(contentTooltip).map((d, i) => {
       if(d === 'color') {
@@ -54,11 +55,17 @@ export default class SimpleTooltipStyle extends Component {
       }
 
       return (
-        <div className= "tooltip_tr" style={trStyle} key={i}>
-          <div className= "tooltip_td" style={tdHeadStyle} key={i}>
+        <div className="tooltip_tr"
+             style={trStyle}
+             key={i}>
+          <div className="tooltip_td"
+               style={tdHeadStyle}
+               key={i}>
             {d}
           </div>
-          <div className= "tooltip_td" style={colorStyle? tdColorStyle: tdStyle} key={i.i}>
+          <div className="tooltip_td"
+               style={colorStyle? tdColorStyle : tdStyle}
+               key={i.i}>
             {contentTooltip[d]}
           </div>
         </div>
@@ -66,7 +73,7 @@ export default class SimpleTooltipStyle extends Component {
     })
 
     return (
-      <div>
+      <div style={{top: position.top, left: position.left, position: 'absolute'}}>
         {cv}
       </div>
     )
