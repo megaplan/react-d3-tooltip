@@ -36,8 +36,8 @@ export default class PieTooltip extends Component {
       color: d.color
     }
     this.setState({
-      xTooltip: d3.event.clientX,
-      yTooltip: d3.event.clientY,
+      xTooltip: d3.event.layerX,
+      yTooltip: d3.event.layerY,
       contentTooltip: contentTooltip
     })
   }
@@ -54,30 +54,50 @@ export default class PieTooltip extends Component {
 
     const {
       width,
-      height
-    } = this.props;
+      height,
+      data,
+      chartSeries,
+      value,
+      name,
+      categoricalColors,
+      showLegend
+      } = this.props;
 
     const radius = this.props.radius || Math.min(width - 120, height - 120) / 2;
     const outerRadius = radius - 10;
+
+    var legend;
+    if(showLegend) legend =
+      <Legend
+        {...this.props}
+        width={width}
+        chartSeries={chartSeries}
+        categoricalColors={categoricalColors}
+      />
 
     return (
       <div>
         <Tooltip {...this.props} {...this.state}>
           {this.props.children}
         </Tooltip>
-        <Legend
-          {...this.props}
-        />
+        {legend}
         <ChartPie
           {...this.props}
-          >
+          width={width}
+          height={height}
+          data={data}
+          chartSeries={chartSeries}
+          value={value}
+          name={name}
+        >
           <Pie
             {...this.props}
-            radius= {radius}
-            outerRadius= {outerRadius}
+            radius={radius}
+            outerRadius={outerRadius}
+            chartSeries={chartSeries}
             onMouseOver={this._mouseOver.bind(this)}
             onMouseOut={this._mouseOut.bind(this)}
-            />
+          />
         </ChartPie>
       </div>
     )
