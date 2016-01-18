@@ -17,3 +17,4 @@ export {default as Voronoi} from './utils/voronoi';
 
 export {default as SimpleTooltip} from './tooltip/Simple/index';
 export {default as TableTooltip} from './tooltip/Table/index';
+export {default as AreaTooltip} from './area';

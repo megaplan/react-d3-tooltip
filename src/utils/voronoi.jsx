@@ -11,14 +11,16 @@ import ReactFauxDOM from 'react-faux-dom';
 import {series} from 'react-d3-shape';
 
 export default class Voronoi extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
 
   static defaultProps = {
     initVoronoi: d3.geom.voronoi,
-    onMouseOver: (d) => {},
-    onMouseOut: (d) => {}
+    onMouseOver: (d) => {
+    },
+    onMouseOut: (d) => {
+    }
   }
 
   _mkVoronoi(dom) {
@@ -31,7 +33,7 @@ export default class Voronoi extends Component {
       onMouseOver,
       stack,
       height
-    } = this.props;
+      } = this.props;
 
     // because d3.geom.voronoi does not handle coincident points (and this data from the government comes pre-rounded to a tenth of a degree), d3.nest is used to collapse coincident points before constructing the Voronoi.
     // see example: http://bl.ocks.org/mbostock/8033015
@@ -40,15 +42,23 @@ export default class Voronoi extends Component {
     if(stack) {
       const _setStack = this._setStack();
       var dataset = _setStack(mkSeries);
-    }else {
+    } else {
       var dataset = mkSeries;
     }
 
     var nestData = d3.nest()
-      .key((d) => { return d.x + "," + d.y + "," + d.y0; })
-      .rollup((v) => { return v[0]; })
-      .entries(d3.merge(dataset.map((d) => { return d.data; })))
-      .map((d) => { return d.values; })
+      .key((d) => {
+        return d.x + "," + d.y + "," + d.y0;
+      })
+      .rollup((v) => {
+        return v[0];
+      })
+      .entries(d3.merge(dataset.map((d) => {
+        return d.data;
+      })))
+      .map((d) => {
+        return d.values;
+      })
 
     var voronoiPolygon = this._setGeomVoronoi().call(this, nestData);
 
@@ -57,34 +67,38 @@ export default class Voronoi extends Component {
 
     var voronoiPath = voronoiChart.selectAll('path')
       .data(voronoiPolygon)
-    .enter().append("path")
-      .attr("d", (d) => { return "M" + d.join("L") + "Z"; })
+      .enter().append("path")
+      .attr("d", (d) => {
+        return "M" + d.join("L") + "Z";
+      })
       .on("mouseover", (d, i) => {
         onMouseOver(d, i, xScaleSet, yScaleSet, stack)
       })
       .on("mouseout", (d, i) => {
         onMouseOut(d, i, stack)
       })
-      .datum((d) => {return d.point; })
+      .datum((d) => {
+        return d.point;
+      })
       .style('fill', 'none')
       .style('pointer-events', 'all');
 
     return voronoiChart;
   }
 
-  _setStack () {
-    const{
+  _setStack() {
+    const {
       chartSeries
-    } = this.props;
+      } = this.props;
 
     var buildOut = function(len) {
       // baseline for positive and negative bars respectively.
       var currentXOffsets = [];
       var currentXIndex = 0;
 
-      return function(d, y0, y){
+      return function(d, y0, y) {
 
-        if(currentXIndex++ % len === 0){
+        if(currentXIndex++ % len === 0) {
           currentXOffsets = [0, 0];
         }
 
@@ -102,11 +116,13 @@ export default class Voronoi extends Component {
     }
 
     return d3.layout.stack()
-      .values((d) => { return d.data; })
+      .values((d) => {
+        return d.data;
+      })
       .out(buildOut(chartSeries.length));
   }
 
-  _setGeomVoronoi () {
+  _setGeomVoronoi() {
     const {
       width,
       height,
@@ -117,14 +133,18 @@ export default class Voronoi extends Component {
       y,
       yScaleSet,
       stack
-    } = this.props;
+      } = this.props;
 
     var voronoi = initVoronoi()
-      .x((d) => { return xScaleSet(d.x); })
-      .y((d) => { return stack ? yScaleSet(d.y + d.y0): yScaleSet(d.y); })
+      .x((d) => {
+        return xScaleSet(d.x);
+      })
+      .y((d) => {
+        return stack ? yScaleSet(d.y + d.y0) : yScaleSet(d.y);
+      })
       .clipExtent([
-        [-margins.left, -margins.top],
-        [width + margins.right, height + margins.bottom]
+        [0, 0],
+        [width - margins.right - margins.left, height - margins.bottom - margins.top]
       ]);
 
     return voronoi;
