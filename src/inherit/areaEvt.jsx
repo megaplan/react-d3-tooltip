@@ -46,7 +46,6 @@ export default class AreaEvt extends Component {
       leftMargin = this.props.margins.left
       topMargin = this.props.margins.top
     }
-    console.log(xScaleSet(d.x), newY, d, i, xScaleSet, yScaleSet, stack)
     this.setState({
       xTooltip: xScaleSet(d.x) + leftMargin,
       yTooltip: newY + topMargin,
