@@ -20,7 +20,6 @@ export default class AreaEvt extends Component {
   }
 
   mouseOut(d, i) {
-    return
     this.setState({
       xTooltip: -100,
       yTooltip: -100,
