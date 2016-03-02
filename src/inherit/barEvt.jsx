@@ -20,19 +20,27 @@ export default class BarEvt extends Component {
   }
 
   mouseOut(d, i) {
-    this.setState({
+    const _state = {
       xTooltip: null,
       yTooltip: null,
       contentTooltip: null
-    })
+    }
+    this.setState(_state)
+    if(this.props.onTooltipHide) {
+      this.props.onTooltipHide(_state)
+    }
   }
 
   mouseOver(d, i) {
     const contentTooltip = {title: d.name, value: d.y, fieldTitle: d.x, color: d.color};
-    this.setState({
+    const _state = {
       xTooltip: d3.event.layerX,
       yTooltip: d3.event.layerY,
       contentTooltip: contentTooltip
-    })
+    }
+    this.setState(_state)
+    if(this.props.onTooltipShow) {
+      this.props.onTooltipShow(_state)
+    }
   }
 }
