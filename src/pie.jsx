@@ -35,19 +35,27 @@ export default class PieTooltip extends Component {
       value: d.value,
       color: d.color
     }
-    this.setState({
+    const _state = {
       xTooltip: d3.event.layerX,
       yTooltip: d3.event.layerY,
       contentTooltip: contentTooltip
-    })
+    }
+    this.setState(_state)
+    if(this.props.onTooltipShow) {
+      this.props.onTooltipShow(_state)
+    }
   }
 
   _mouseOut(d) {
-    this.setState({
+    const _state = {
       xTooltip: null,
       yTooltip: null,
       contentTooltip: null
-    })
+    }
+    this.setState(_state)
+    if(this.props.onTooltipHide) {
+      this.props.onTooltipHide(_state)
+    }
   }
 
   render() {
