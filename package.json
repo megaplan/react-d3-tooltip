@@ -1,5 +1,5 @@
 {
-  "name": "@megaplan/react-d3-tooltip",
+  "name": "react-d3-tooltip",
   "version": "1.4.0",
   "description": "react-d3 tooltip implementation",
   "main": "./lib/index",
