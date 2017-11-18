@@ -3,8 +3,8 @@
 import {
   default as React,
   Component,
-  PropTypes,
 } from 'react';
+import * as PropTypes from 'prop-types';
 
 export default class SimpleTooltipStyle extends Component {
 
@@ -13,10 +13,10 @@ export default class SimpleTooltipStyle extends Component {
   }
 
   static propTypes = {
-    title: React.PropTypes.any,
-    color: React.PropTypes.any,
-    fieldTitle: React.PropTypes.string,
-    value: React.PropTypes.any
+    title: PropTypes.any,
+    color: PropTypes.any,
+    fieldTitle: PropTypes.string,
+    value: PropTypes.any
   }
 
   render() {
